@@ -7,6 +7,7 @@ import com.hamza.androidpaginglibrary.models.User
 import com.hamza.androidpaginglibrary.models.UserResponse
 import com.hamza.androidpaginglibrary.utils.ServiceBuilder
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -75,6 +76,11 @@ class UserDataSource(private val scope: CoroutineScope) : PageKeyedDataSource<In
             }
         }
     }
+    override fun invalidate() {
+        super.invalidate()
+        scope.cancel()
+    }
+
 
     companion object {
         const val PAGE_SIZE = 6
